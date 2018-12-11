@@ -206,7 +206,7 @@ int main(int argc, char** argv)
 // 	test=test.conjugate();
 // 	cout<<"------"<<endl;
 // 	cout<<_ptest.atest->Att*180.0/M_PI<<endl;
-	dst.SetStringContent(to_string(_ptest.atest->Att(2)*180.0/M_PI));
+	dst.SetStringContent("Realyaw:"+to_string(_ptest.atest->GetRealYaw()*180.0/M_PI)+"\n"+"yaw:"+to_string(_ptest.atest->Att(2)*180.0/M_PI)+"\n"+"pitch:"+to_string(_ptest.atest->Att(1)*180.0/M_PI)+"\n"+"roll:"+to_string(_ptest.atest->Att(0)*180.0/M_PI));
 // 	getchar();
  	cv::Affine3d PhoneAtt(
             cv::Affine3d::Mat3( test.toRotationMatrix()(0,0),test.toRotationMatrix()(1,0),test.toRotationMatrix()(2,0),
@@ -235,7 +235,7 @@ int main(int argc, char** argv)
 // 		cout<<lineArray[13]<<endl;
 // 		_ptest.setXY(20,20);
 // 		cout<<count<<"step"<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<endl;		
- 		outFile<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.cur_index<<","<<_ptest.cur_time<<endl;
+//  		outFile<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.cur_index<<","<<_ptest.cur_time<<endl;
 // 		cout<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.cur_index<<","<<_ptest.cur_time<<endl;
 	}
 	

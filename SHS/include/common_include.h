@@ -59,6 +59,14 @@ struct PDRPoint
 	double floor_id;
 	double deta_angle;
 };
+struct POIPoint
+{
+  double x;
+  double y;
+  std::string name;
+  int floorIndex;
+};
+
 enum EulerTransformOrder
 {
 	ZYX,ZYZ,ZXY,ZXZ,YXZ,YXY,YZX,YZY,XYZ,XYX,XZY,XZX
