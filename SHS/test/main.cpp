@@ -14,6 +14,7 @@ void OnPdrStepCallbackEvent(double  x, double y, double sl, double yaw ,double d
 
 int main(int argc, char** argv)
 {
+  cout<<"-------"<<endl;
     SHS::DisplayAttitude dst;
 	Eigen::Quaterniond test=angle2quat(M_PI/2,0,0);//如果用这个函数的话，实际输入要求是yaw,roll,
 	Eigen::Quaterniond worldq=angle2quat(0,0,0);
@@ -197,7 +198,8 @@ int main(int argc, char** argv)
 
 // 	test=angle2quat(_ptest.atest->Att(2),_ptest.atest->Att(0),_ptest.atest->Att(1));
 // 	test=test.inverse();
-	test=Eigen::Quaterniond(_ptest.atest->quaternion.w(),_ptest.atest->quaternion.y(),_ptest.atest->quaternion.x(),_ptest.atest->quaternion.z());
+	test=Eigen::Quaterniond(_ptest.atest->quaternion.w(),-_ptest.atest->quaternion.y(),-_ptest.atest->quaternion.x(),_ptest.atest->quaternion.z());
+	//以这种方式是可以对上的，使得安卓正常对上了
 // 	test=_ptest.atest->quaternion;
 // 	test.x()*=-1;
 // 	test.y()*=-1;

@@ -4,7 +4,7 @@
 #dataset_dir: /media/aaron/新加卷/dataset/rgbd_dataset_freiburg1_xyz/rgbd_dataset_freiburg1_xyz
 # file_name: /home/aaron/projects/SHS/data/logfile_2018_11_28_16_21_23.csv
 # file_name: /home/aaron/slambook/slambook-master/iph/northaXC1/sensor_raw_5BEBFAD5.csv
-file_name: /home/aaron/slambook/slambook-master/xiaomi/04/sensor_raw_5C0E2F04.csv
+file_name: /home/aaron/slambook/slambook-master/xiaomi/pitch/sensor_raw_5C0F473A.csv
 
 # camera intrinsics
 # fr1

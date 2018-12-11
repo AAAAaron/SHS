@@ -1,4 +1,3 @@
 [Project]
-Name=SHS
 Manager=KDevCMakeManager
-VersionControl=
+Name=SHS
