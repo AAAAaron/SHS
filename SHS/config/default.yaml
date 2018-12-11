@@ -1,0 +1,36 @@
+%YAML:1.0
+# data
+# the tum dataset directory, change it to yours! 
+#dataset_dir: /media/aaron/新加卷/dataset/rgbd_dataset_freiburg1_xyz/rgbd_dataset_freiburg1_xyz
+# file_name: /home/aaron/projects/SHS/data/logfile_2018_11_28_16_21_23.csv
+# file_name: /home/aaron/slambook/slambook-master/iph/northaXC1/sensor_raw_5BEBFAD5.csv
+file_name: /home/aaron/slambook/slambook-master/xiaomi/04/sensor_raw_5C0E2F04.csv
+
+# camera intrinsics
+# fr1
+#camera.fx: 517.3
+#camera.fy: 516.5
+#camera.cx: 325.1
+#camera.cy: 249.7
+
+#camera.depth_scale: 5000
+
+## VO paras
+#number_of_features: 500
+#scale_factor: 1.2
+#level_pyramid: 8
+#match_ratio: 2.0
+#max_num_lost: 10
+#min_inliers: 10
+#keyframe_rotation: 0.1
+#keyframe_translation: 0.1
+
+
+init_yaw:0
+init_x:3.6
+init_y:10.5
+choose_method:2
+pdrEkf:0
+magoffset:-7
+setIos:0
+DAT:1

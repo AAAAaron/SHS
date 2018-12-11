@@ -1,0 +1,10 @@
+main.m 是主函数
+结果有matlab图输出，第三个红点标识k, 绿点标识加速度标准差
+命令行输出了数值结果，对应k_change和acc_change
+
+floor_bypressure_matrix.m 是调用的换层及换层方式识别函数
+
+LeastSquare.m 是用来求k_change的函数，之后记得要放大一下系数
+
+recogn.m             %只用“气压”来判断 电梯/楼梯/扶梯
+recogn3.m             %用“气压”和“加速度”来判断 电梯/楼梯/扶梯
