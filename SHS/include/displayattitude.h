@@ -28,7 +28,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/viz.hpp> 
 #include <opencv2/imgproc.hpp>
-using namespace cv::Mat;
+using cv::Mat;
 namespace SHS
 {
 class DisplayAttitude
@@ -36,6 +36,7 @@ class DisplayAttitude
 public:
 cv::viz::Viz3d vis;
 vector<POIPoint> poiVector;
+int imgCount;
 DisplayAttitude();
 void SetCurrentFrame(cv::Affine3d& phoneAffine3d,cv::Affine3d& WorldAffine3d);
 void SetStringContent(const string &text);
@@ -70,9 +71,9 @@ static bool AddPoi(Mat img_1,const Eigen::Vector3d &current_phone,const Eigen::Q
     {
       return false;
     }
-    Mat pc=(Mat_<double>(3,1)<<poi_c(0)/poi_c(2),poi_c(1)/poi_c(2),1);//归一化像素平面 
-    Mat K=(Mat_<double>(3,3)<<f*pixel_length/cmos_length,0,pixel_length/2,0,f*pixel_width/cmos_width,pixel_width/2,0,0,1);
-    Mat puv=(Mat_<double>(3,1)<<0,0,0);
+    Mat pc=(cv::Mat_<double>(3,1)<<poi_c(0)/poi_c(2),poi_c(1)/poi_c(2),1);//归一化像素平面 
+    Mat K=(cv::Mat_<double>(3,3)<<f*pixel_length/cmos_length,0,pixel_length/2,0,f*pixel_width/cmos_width,pixel_width/2,0,0,1);
+    Mat puv=(cv::Mat_<double>(3,1)<<0,0,0);
     puv=K*pc;
     cp.x=(int)puv.at<double>(0,0);
     cp.y=(int)puv.at<double>(1,0);//opencv调用的问题，互相交换xy的位置以及uv
@@ -89,19 +90,19 @@ static bool AddDirectionStarff(Mat img_1)
       cpstart.y=0;
       cpend.x=12/16.0*pixel_length;
       cpend.y=15;
-      cv::rectangle(img_1,cpstart,cpend,Scalar(50, 255, 50));
+      cv::rectangle(img_1,cpstart,cpend,cv::Scalar(50, 255, 50));
       for(int i=8;i<=24;i++)
       {
 	cpstart.x=i/32.0*pixel_length;
 	cpstart.y=0;
 	cpend.x=i/32.0*pixel_length;
 	cpend.y=15;
-	cv::line(img_1,cpstart,cpend,Scalar(255,255,255),1);
+	cv::line(img_1,cpstart,cpend,cv::Scalar(255,255,255),1);
 	if(i==16)
 	{
 	  cpend.x-=5;
 	  cpend.y+=10;
-	  cv::putText(img_1,"East",cpend,FONT_HERSHEY_SIMPLEX,0.4, Scalar(255, 255, 255), 0.5, 8);	//BGR
+	  cv::putText(img_1,"East",cpend,1,0.4, cv::Scalar(255, 255, 255), 0.5, 8);	//BGR
 	}
       }
       
@@ -109,10 +110,10 @@ static bool AddDirectionStarff(Mat img_1)
 
 static bool AddArrowFig(Mat img_1)
 {
-  Mat arrow=imread("../media/arrow_meitu_4.jpg");
+  Mat arrow=cv::imread("../media/arrow_meitu_4.jpg");
 //   resize(arrow,arrow,Size(arrow.cols/2,arrow.rows/2),0,0,INTER_LINEAR);
   Mat imagePOI = img_1(cv::Rect(img_1.cols/2.0-arrow.cols/2.0,img_1.rows-arrow.rows,arrow.cols,arrow.rows));
-  Mat mask = imread("../media/arrow_meitu_4.jpg",0);
+  Mat mask = cv::imread("../media/arrow_meitu_4.jpg",0);
   arrow.copyTo(imagePOI,mask);
 }
 
@@ -135,7 +136,7 @@ static void AddArrowLine(Mat img_1,CvPoint &cpstart,CvPoint &cpend)
   double rotate_angle3=0.5*rotate_angle2;
   
   double scale_L22=1.2*scale_L21*cos(rotate_angle1)/cos(rotate_angle2);//内侧线长比例
-  Point cpL21_1,cpL21_2,cpL22_1,cpL22_2,cpL23_1,cpL23_2;
+  cv::Point cpL21_1,cpL21_2,cpL22_1,cpL22_2,cpL23_1,cpL23_2;
   Eigen::Vector3d L21 (cpstart.x-cpend.x,cpstart.y-cpend.y,0);
   Eigen::AngleAxisd arrow_rotate(rotate_angle1,Eigen::Vector3d ( 0,0,1 ));
   Eigen::Vector3d L21_1 = arrow_rotate*L21;
@@ -171,7 +172,7 @@ static void AddArrowLine(Mat img_1,CvPoint &cpstart,CvPoint &cpend)
   cpL23_2.y=cpend.y+int(round(L23_2(1)));  
 
   
-  Point* points=new Point[8];
+  cv::Point* points=new cv::Point[8];
   points[0]=cpend;
   points[1]=cpL21_1;
   points[2]=cpL22_1;
@@ -194,7 +195,7 @@ static void AddArrowLine(Mat img_1,CvPoint &cpstart,CvPoint &cpend)
   
   
 //   cv::fillConvexPoly(img_1,points,6,Scalar(0, 0, 255));
-  cv::fillConvexPoly(img_1,points,8,Scalar(0, 0, 255));
+  cv::fillConvexPoly(img_1,points,8,cv::Scalar(0, 0, 255));
   
   delete[] points;
   
@@ -209,15 +210,15 @@ static void AddArrowLine(Mat img_1,CvPoint &cpstart,CvPoint &cpend)
 
 static bool AddMAp(Mat img_1,const Eigen::Vector3d &current_phone)
 {
-  Mat arrow=imread("../media/map_meitu_2.jpg");
+  Mat arrow=cv::imread("../media/map_meitu_2.jpg");
 //   resize(arrow,arrow,Size(arrow.cols/2,arrow.rows/2),0,0,INTER_LINEAR);
   Mat imagePOI = img_1(cv::Rect(img_1.cols-arrow.cols-3,img_1.rows-arrow.rows-3,arrow.cols,arrow.rows));
-  Mat mask = imread("../media/map_meitu_2.jpg",0);
+  Mat mask = cv::imread("../media/map_meitu_2.jpg",0);
   arrow.copyTo(imagePOI,mask);
-  Point cp;
+  cv::Point cp;
   cp.x=-current_phone(0)/80*arrow.cols+img_1.cols-3;
   cp.y=-current_phone(1)/80*arrow.rows+img_1.rows-3;
-  cv::circle(img_1,cp,3,Scalar(255, 0, 0),2);
+  cv::circle(img_1,cp,3,cv::Scalar(255, 0, 0),2);
 }
 
 static double hfromdis(double distance)

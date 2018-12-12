@@ -16,6 +16,28 @@ int main(int argc, char** argv)
 {
   cout<<"-------"<<endl;
     SHS::DisplayAttitude dst;
+    
+    string lineStr2;
+	ifstream poiFile("../media/4FloorName.csv");
+       while (getline(poiFile, lineStr2))  {
+	stringstream ss(lineStr2);
+	string str;  
+	vector<string> lineArray;  
+	// 按照逗号分隔  
+	POIPoint pp;
+	while (getline(ss, str, ','))  
+	{
+		lineArray.push_back(str); 
+	}
+	pp.x=atof(lineArray[3].c_str());
+	pp.y=atof(lineArray[4].c_str());
+	pp.name=lineArray[2];
+	dst.poiVector.push_back(pp);
+       }
+    poiFile.close();
+    cout<<"poi"<<dst.poiVector.size()<<endl;
+    
+    
 	Eigen::Quaterniond test=angle2quat(M_PI/2,0,0);//如果用这个函数的话，实际输入要求是yaw,roll,
 	Eigen::Quaterniond worldq=angle2quat(0,0,0);
     SHS::Config::setParameterFile ("../config/default.yaml");
@@ -196,14 +218,17 @@ int main(int argc, char** argv)
 	}
 // 	
 
+	  
 // 	test=angle2quat(_ptest.atest->Att(2),_ptest.atest->Att(0),_ptest.atest->Att(1));
 // 	test=test.inverse();
 	test=Eigen::Quaterniond(_ptest.atest->quaternion.w(),-_ptest.atest->quaternion.y(),-_ptest.atest->quaternion.x(),_ptest.atest->quaternion.z());
-	//以这种方式是可以对上的，使得安卓正常对上了
-// 	test=_ptest.atest->quaternion;
-// 	test.x()*=-1;
-// 	test.y()*=-1;
-// 	test=test.conjugate();
+	//以这种方式是可以对上的，使得安卓正常对上了,苹果也可以正常使用
+	//主要是cv用的方式和eigen的有点差别，
+	Eigen::Vector3d cphone(17.9,14.53,1);
+	if(lineArray[26]>-1e-5&&lineArray.size()>30)
+	{
+	  dst.ProcessImgAr(SHS::Config::get<string> ( "file_dir" )+to_string(int(lineArray[26]))+".jpg",cphone,test);
+	}
 // 	cout<<"------"<<endl;
 // 	cout<<_ptest.atest->Att*180.0/M_PI<<endl;
 	dst.SetStringContent("Realyaw:"+to_string(_ptest.atest->GetRealYaw()*180.0/M_PI)+"\n"+"yaw:"+to_string(_ptest.atest->Att(2)*180.0/M_PI)+"\n"+"pitch:"+to_string(_ptest.atest->Att(1)*180.0/M_PI)+"\n"+"roll:"+to_string(_ptest.atest->Att(0)*180.0/M_PI));
@@ -259,14 +284,46 @@ int main(int argc, char** argv)
 
 int main2(int argc, char** argv)
 {
-  deque<float> ndew={1.2f, 2.5f, 5.6f, -2.5f};
-  double mean1 = 0., variance1 = 0., stddev1 = 0.;  
-  meanStdDev(ndew, &mean1, &variance1, &stddev1);
-	cout<<mean1<<endl;
-	cout<<variance1<<endl;
-	cout<<stddev1<<endl;
-	cout<<"--------"<<endl;
-// 	cout<<argv[1]<<endl;
-//   	getchar();
+  cout<<"-------"<<endl;
+      SHS::DisplayAttitude dst;
+    
+    string lineStr2;
+	ifstream poiFile("../media/4FloorName.csv");
+       while (getline(poiFile, lineStr2))  {
+	stringstream ss(lineStr2);
+	string str;  
+	vector<string> lineArray;  
+	// 按照逗号分隔  
+	POIPoint pp;
+	while (getline(ss, str, ','))  
+	{
+		lineArray.push_back(str); 
+	}
+	pp.x=atof(lineArray[3].c_str());
+	pp.y=atof(lineArray[4].c_str());
+	pp.name=lineArray[2];
+	dst.poiVector.push_back(pp);
+       }
+    poiFile.close();
+    cout<<"poi"<<dst.poiVector.size()<<endl;
+// Eigen::Quaterniond test=angle2quat(M_PI/2,0,0);//如果用这个函数的话，实际输入要求是yaw,roll,
+// 	Eigen::Quaterniond worldq=angle2quat(0,0,0);
+//     SHS::Config::setParameterFile ("../config/default.yaml");
+    
+// 	time_t start,stop;
+// 	start = time(NULL);
+
+	SHS::PDRSIM _ptest;
+// 	_ptest.stest->set_para(1.3,0.9);
+// 	int mode=SHS::Config::get<int> ( "choose_method" );
+// 	double setyaw=SHS::Config::get<double> ( "init_yaw" );
+// 	double BJoffset=-7.0*M_PI/180.0;
+// 	_ptest.pdrEkf=bool( SHS::Config::get<int> ( "pdrEkf" ));
+// 	double initx=SHS::Config::get<double> ( "init_x" );
+// 	double inity=SHS::Config::get<double> ( "init_y" );
+
+// 	istringstream( SHS::Config::get<string> ( "pdrEkf" ))>>_ptest.pdrEkf;
+// 	cout<<"使用ekf?:"<<_ptest.pdrEkf<<endl; 
+// 	_ptest.~PDRSIM();
 	return 0;
 }

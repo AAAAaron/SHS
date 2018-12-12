@@ -35,6 +35,8 @@ PDRSIM::PDRSIM()
 // 	Step::Ptr Stest(new Step);
 	
 	this->stest = new Step();
+	atest=NULL;
+	floortest=NULL;
 	floorCallBack=NULL;
 	this->callback=NULL;
 	this->cur_time=0;

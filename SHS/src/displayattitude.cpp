@@ -62,6 +62,7 @@ DisplayAttitude::DisplayAttitude()
     vis.showWidget("x",X);
     vis.showWidget("y",Y);
     vis.showWidget("z",Z);
+    imgCount=0;
 }
 void DisplayAttitude::SetCurrentFrame(cv::Affine3d& phoneAffine3d, cv::Affine3d& WorldAffine3d)
 {
@@ -89,6 +90,7 @@ CvPoint cp;
 
 void DisplayAttitude::ProcessImgAr(string fileName, Eigen::Vector3d& current_phone, Eigen::Quaterniond& Qpw)
 {
+  imgCount++;
   Mat img_1= cv::imread (fileName, CV_LOAD_IMAGE_COLOR );
   AddDirectionStarff(img_1);
   AddMAp(img_1,current_phone);   
@@ -109,11 +111,11 @@ void DisplayAttitude::ProcessImgAr(string fileName, Eigen::Vector3d& current_pho
 	  AddArrowLine(img_1,arrowstart,arrowend);
 // 	  cv::line(img_1,arrowstart,arrowend,Scalar(255, 255, 255),3);  
 // 	  cv::circle(img_1,arrowend,10,Scalar(0, 0, 255),1);
-	  cv::putText(img_1,poiVector[i].name,cp,FONT_HERSHEY_SIMPLEX,1, Scalar(0, 0, 255), 2, 8);	
+	  cv::putText(img_1,poiVector[i].name,cp,1,1, cv::Scalar(0, 0, 255), 2, 8);	
 // 	  cvFillPoly(img_1, point1, 3, 2, color);
 	}
 	else{
-	  cv::putText(img_1,poiVector[i].name,cp,FONT_HERSHEY_SIMPLEX,0.5, Scalar(255, 255, 50), 2, 8);	
+	  cv::putText(img_1,poiVector[i].name,cp,1,0.5, cv::Scalar(255, 255, 50), 2, 8);	
 	}
 	 
     }
@@ -122,7 +124,7 @@ void DisplayAttitude::ProcessImgAr(string fileName, Eigen::Vector3d& current_pho
       continue;
     }
   }
-  cv::imwrite(fileName,img_1,compression_params);
+  cv::imwrite("../img/"+to_string(imgCount)+".jpg",img_1,compression_params);
 
 }
 
