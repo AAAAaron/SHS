@@ -204,8 +204,8 @@ int main(int argc, char** argv)
 // 	_ptest.adddata(lineArray[0],lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[7],lineArray[8],lineArray[9],lineArray[10],lineArray[11],lineArray[12]);
 	if(bool( SHS::Config::get<int> ( "setIos" )))
 	{
-	_ptest.adddata( lineArray[7],lineArray[8],lineArray[9], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[10],lineArray[11],lineArray[12],lineArray[25]);	//采集DAT		
-	
+// 	_ptest.adddata( lineArray[7],lineArray[8],lineArray[9], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[10],lineArray[11],lineArray[12],lineArray[25]);	//旧版王超采集DAT		
+	_ptest.adddata( lineArray[7],lineArray[8],lineArray[9], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[10],lineArray[11],lineArray[12],lineArray[27]);	//采集DAT	
 	}
 	else{
 	  if(!bool( SHS::Config::get<int> ( "DAT" )))
@@ -224,14 +224,16 @@ int main(int argc, char** argv)
 	test=Eigen::Quaterniond(_ptest.atest->quaternion.w(),-_ptest.atest->quaternion.y(),-_ptest.atest->quaternion.x(),_ptest.atest->quaternion.z());
 	//以这种方式是可以对上的，使得安卓正常对上了,苹果也可以正常使用
 	//主要是cv用的方式和eigen的有点差别，
-	Eigen::Vector3d cphone(17.9,14.53,1);
-	if(lineArray[26]>-1e-5&&lineArray.size()>30)
+	Eigen::Vector3d cphone(15.53,17.9,1);
+	
+	if(lineArray[28]>-1e-5&&lineArray.size()>29)
 	{
-	  dst.ProcessImgAr(SHS::Config::get<string> ( "file_dir" )+to_string(int(lineArray[26]))+".jpg",cphone,test);
+	  Eigen::Quaterniond qpw(test);
+	  dst.ProcessImgAr(SHS::Config::get<string> ( "file_dir" )+to_string(int(lineArray[28]))+".jpg",cphone,qpw,_ptest.atest->GetRealFace());
 	}
 // 	cout<<"------"<<endl;
 // 	cout<<_ptest.atest->Att*180.0/M_PI<<endl;
-	dst.SetStringContent("Realyaw:"+to_string(_ptest.atest->GetRealYaw()*180.0/M_PI)+"\n"+"yaw:"+to_string(_ptest.atest->Att(2)*180.0/M_PI)+"\n"+"pitch:"+to_string(_ptest.atest->Att(1)*180.0/M_PI)+"\n"+"roll:"+to_string(_ptest.atest->Att(0)*180.0/M_PI));
+	dst.SetStringContent("GetRealYaw:"+to_string(_ptest.atest->GetRealYaw()*180.0/M_PI)+"\n"+"GetRealFace:"+to_string(_ptest.atest->GetRealFace()*180.0/M_PI)+"\n"+"yaw:"+to_string(_ptest.atest->Att(2)*180.0/M_PI)+"\n"+"pitch:"+to_string(_ptest.atest->Att(1)*180.0/M_PI)+"\n"+"roll:"+to_string(_ptest.atest->Att(0)*180.0/M_PI));
 // 	getchar();
  	cv::Affine3d PhoneAtt(
             cv::Affine3d::Mat3( test.toRotationMatrix()(0,0),test.toRotationMatrix()(1,0),test.toRotationMatrix()(2,0),

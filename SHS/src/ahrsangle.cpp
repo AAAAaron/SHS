@@ -97,25 +97,104 @@ void AhrsAngle::SetYaw(double yaw)
 }
 Eigen::Vector3d realy_(0,1,0);
 Eigen::Vector3d cury_(0,0,0);
-
+// realy_=realy_*conv;
+//   realMinusZ_*=conv;
+Eigen::Vector3d realMinusZ_(0,0,1);
+Eigen::Vector3d curMinusZ_(0,0,0);
 //如果y>0,就是pi/2-theta,否则就是pi/2+theta
 //实际想求的是转化完之后与yz平面的夹角
+// double AhrsAngle::GetRealYaw()
+// {
+//   cury_=this->quaternion.inverse()*realy_;
+//   double atheta=acos(sqrt(cury_(1)*cury_(1)+cury_(2)*cury_(2)));
+//   if(cury_(0)>0)
+//   {
+//     atheta=atheta;
+//   }
+//   else
+//   {
+//     atheta=-atheta;
+//   }
+//   if(atheta>M_PI)
+//   {
+//     atheta-=2*M_PI;
+//   }
+//   else
+//   {
+//     if(atheta<-M_PI)
+//     {
+//       atheta+=2*M_PI;
+//     }
+//   }
+//   return atheta;
+// 
+// }
 double AhrsAngle::GetRealYaw()
 {
+  
   cury_=this->quaternion.inverse()*realy_;
-  double atheta=acos(cury_(0));
-  if(cury_(1)>0)
+  double atheta=asin(cury_(0));
+  if(atheta<0&&cury_(1)<0)
   {
-    atheta=M_PI/2.0-atheta;
+    atheta=-M_PI-atheta;
   }
   else
   {
-    atheta=M_PI/2.0+atheta;
+    if(atheta>=0&&cury_(1)<0)
+    {
+    atheta=M_PI-atheta;
+    }
+  }
+  
+  
+  
+  if(atheta>M_PI)
+  {
+    atheta-=2*M_PI;
+  }
+  else
+  {
+    if(atheta<-M_PI)
+    {
+      atheta+=2*M_PI;
+    }
   }
   return atheta;
 
 }
+double AhrsAngle::GetRealFace()
+{
 
+  cury_=this->quaternion.inverse()*realy_;
+  double atheta=asin(cury_(0));
+  if(atheta<0&&cury_(1)<0)
+  {
+    atheta=-M_PI-atheta;
+  }
+  else
+  {
+    if(atheta>=0&&cury_(1)<0)
+    {
+    atheta=M_PI-atheta;
+    }
+  }
+  
+  atheta+=M_PI/2;
+  
+  if(atheta>M_PI)
+  {
+    atheta-=2*M_PI;
+  }
+  else
+  {
+    if(atheta<-M_PI)
+    {
+      atheta+=2*M_PI;
+    }
+  }
+  return atheta;
+  
+}
 AhrsAngle::~AhrsAngle()
 {
 

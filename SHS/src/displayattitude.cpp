@@ -69,11 +69,16 @@ void DisplayAttitude::SetCurrentFrame(cv::Affine3d& phoneAffine3d, cv::Affine3d&
   
 
 //   	cv::waitKey(5);
+	if(imgCount>1)
+	{
+	  cv::imshow("image", img_1 );
+	  cv::waitKey(1);
+	}
 	
 	vis.setWidgetPose( "World", WorldAffine3d);
         vis.setWidgetPose( "Camera", phoneAffine3d);
 	vis.setWidgetPose( "Phone", phoneAffine3d);
-        vis.spinOnce(10, false);
+        vis.spinOnce(5, false);
 }
 void DisplayAttitude::SetStringContent(const string& text)
 {
@@ -88,11 +93,12 @@ DisplayAttitude::~DisplayAttitude()
 Eigen::Vector3d poi(0,0,0);
 CvPoint cp;
 
-void DisplayAttitude::ProcessImgAr(string fileName, Eigen::Vector3d& current_phone, Eigen::Quaterniond& Qpw)
+void DisplayAttitude::ProcessImgAr(string fileName, Eigen::Vector3d& current_phone, Eigen::Quaterniond& Qpw,double faceAngle)
 {
+
   imgCount++;
-  Mat img_1= cv::imread (fileName, CV_LOAD_IMAGE_COLOR );
-  AddDirectionStarff(img_1);
+  img_1= cv::imread (fileName, CV_LOAD_IMAGE_COLOR );
+  AddDirectionStarff(img_1,faceAngle);
   AddMAp(img_1,current_phone);   
   for(unsigned int i=0;i<poiVector.size();i++)
   { 
@@ -111,11 +117,11 @@ void DisplayAttitude::ProcessImgAr(string fileName, Eigen::Vector3d& current_pho
 	  AddArrowLine(img_1,arrowstart,arrowend);
 // 	  cv::line(img_1,arrowstart,arrowend,Scalar(255, 255, 255),3);  
 // 	  cv::circle(img_1,arrowend,10,Scalar(0, 0, 255),1);
-	  cv::putText(img_1,poiVector[i].name,cp,1,1, cv::Scalar(0, 0, 255), 2, 8);	
+	  cv::putText(img_1,poiVector[i].name,cp,1,2, cv::Scalar(0, 0, 255), 2, 8);	
 // 	  cvFillPoly(img_1, point1, 3, 2, color);
 	}
 	else{
-	  cv::putText(img_1,poiVector[i].name,cp,1,0.5, cv::Scalar(255, 255, 50), 2, 8);	
+	  cv::putText(img_1,poiVector[i].name,cp,1,1.5, cv::Scalar(255, 255, 50), 2, 8);	
 	}
 	 
     }
@@ -125,7 +131,7 @@ void DisplayAttitude::ProcessImgAr(string fileName, Eigen::Vector3d& current_pho
     }
   }
   cv::imwrite("../img/"+to_string(imgCount)+".jpg",img_1,compression_params);
-
+  
 }
 
 }

@@ -36,11 +36,12 @@ class DisplayAttitude
 public:
 cv::viz::Viz3d vis;
 vector<POIPoint> poiVector;
+Mat img_1;
 int imgCount;
 DisplayAttitude();
 void SetCurrentFrame(cv::Affine3d& phoneAffine3d,cv::Affine3d& WorldAffine3d);
 void SetStringContent(const string &text);
-void ProcessImgAr(string fileName,Eigen::Vector3d &current_phone,Eigen::Quaterniond& Qpw);
+void ProcessImgAr(string fileName,Eigen::Vector3d &current_phone,Eigen::Quaterniond& Qpw,double faceAngle);
 ~DisplayAttitude();
 
 static bool AddPoi(Mat img_1,const Eigen::Vector3d &current_phone,const Eigen::Quaterniond &Qpw,const Eigen::Vector3d &poi_vec,CvPoint &cp)
@@ -63,8 +64,13 @@ static bool AddPoi(Mat img_1,const Eigen::Vector3d &current_phone,const Eigen::Q
 //     cout<<poi_c<<endl;
     int pixel_length=img_1.cols;
     int pixel_width=img_1.rows;
+//     int pixel_length=img_1.rows;
+//     int pixel_width=img_1.cols;  //竖着的时候  
+    
+//     cout<<pixel_length<<"...."<<pixel_width<<endl;
     double cmos_length=6.69;
     double cmos_width=5.21;
+
     double f=4.0;//焦距mm
 //     cout<<poi_c(2)<<endl;
     if(poi_c(2)<=0)
@@ -77,11 +83,32 @@ static bool AddPoi(Mat img_1,const Eigen::Vector3d &current_phone,const Eigen::Q
     puv=K*pc;
     cp.x=(int)puv.at<double>(0,0);
     cp.y=(int)puv.at<double>(1,0);//opencv调用的问题，互相交换xy的位置以及uv
-    return true;
+    
+    if(cp.x<pixel_length&&cp.y<pixel_width&&cp.x>0&&cp.y>0)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+    
+    
+    
 }
 
-static bool AddDirectionStarff(Mat img_1)
+static bool AddDirectionStarff(Mat img_1,double faceAngle)
 {
+  int angle=int(faceAngle*180/M_PI);
+  string showStr="";
+  if(angle>0)
+  {
+    showStr="N2E:"+to_string(angle);
+  }
+  else
+  {
+    showStr="N2W:"+to_string(-angle);
+  }
       int pixel_length=img_1.cols;
       int pixel_width=img_1.rows;
       
@@ -100,9 +127,9 @@ static bool AddDirectionStarff(Mat img_1)
 	cv::line(img_1,cpstart,cpend,cv::Scalar(255,255,255),1);
 	if(i==16)
 	{
-	  cpend.x-=5;
-	  cpend.y+=10;
-	  cv::putText(img_1,"East",cpend,1,0.4, cv::Scalar(255, 255, 255), 0.5, 8);	//BGR
+	  cpend.x-=20;
+	  cpend.y+=20;
+	  cv::putText(img_1,showStr,cpend,2,0.8, cv::Scalar(255, 0, 0), 0.5, 8);	//BGR
 	}
       }
       

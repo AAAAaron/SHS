@@ -69,7 +69,7 @@ public:
 	virtual void filterUpdate(double gyro_x,double gyro_y,double gyro_z,double acc_x,double acc_y,double acc_z,double mag_x,double mag_y,double mag_z,double deta_time);
 	void SetYaw(double yaw);
 	double GetRealYaw();//生成与真y的夹角，或者说与启动y的夹角
-	
+	double GetRealFace();//在相机旋转的过程中，生成面向的角度
 protected:
   //for kalman filter
 	Eigen::Quaterniond q_r;
