@@ -25,7 +25,7 @@ namespace SHS{
 class AttitudeObserver
 {
 public:
-double FS;//采样频率FrequeOfSample
+int FS;//采样频率FrequeOfSample
 int currentFloorIndex;
 int ISCHANGEFLOOR;
 int FLOORTYPE;
@@ -40,6 +40,7 @@ vector<dataPoint > pressure_;
 deque<double> difBuffer;
 void updateFloorHeightMatrix();
 int getCurrentFloorIndex();
+void setCurrentFloorIndex(int floorId);
 double getK();
 double getAccStd();
 int getFloorType();
@@ -56,6 +57,7 @@ double initTime_;
 int currentDataIndex_;
 vector<double> floorHeight_;
 deque<double> calDifBuff;
+
 
 void getFrequency();
 double heightMatrix_[100][100];

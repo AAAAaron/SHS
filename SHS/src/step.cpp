@@ -21,8 +21,8 @@ namespace SHS {
   
 Step::Step(void)
 {
-  	K11 = 0.121153867959715;
-	b11 = 0.311140400598447;
+  	K11 = 0.111153867959715;
+	b11 = 0.211140400598447;
 	this->step_index.clear();
 	this->filter_order=4;
 	this->but_length_Fs=100;

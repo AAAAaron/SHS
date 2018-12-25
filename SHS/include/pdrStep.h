@@ -11,14 +11,17 @@
 extern "C" {
 #endif
 
-JNIEXPORT jint JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_initJniPdrLib(JNIEnv *, jclass, jobject obj);
+JNIEXPORT void JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_initJniPdrStep(JNIEnv *, jclass);
+
+JNIEXPORT jint JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_setJniPdrStepCallback(JNIEnv *, jclass, jobject object);
+
+JNIEXPORT jint JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_setJniPressureCallback(JNIEnv *, jclass, jobject object);
 
 JNIEXPORT jboolean JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_nextStepEx(JNIEnv *env, jclass, jdouble gyro_x,jdouble gyro_y,jdouble gyro_z,jdouble linear_acc_x,jdouble linear_acc_y,jdouble linear_acc_z,jdouble gx,jdouble gy,jdouble gz,jdouble mag_x,jdouble mag_y,jdouble mag_z,jdouble time_r);
 
 JNIEXPORT jint JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_releaseJniPdrLib(JNIEnv *, jclass);
 
 JNIEXPORT jstring JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_getVersionFromJNI(JNIEnv *, jclass);
-
 
 
 JNIEXPORT jdouble JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_getX(JNIEnv *, jclass);
@@ -60,6 +63,8 @@ JNIEXPORT void JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_floorModuleAddFlo
 JNIEXPORT void JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_floorModuleUpdateFloorHeightMatrix(JNIEnv *, jclass);
 
 JNIEXPORT jint JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_floorModuleAddData(JNIEnv *, jclass ,jdouble acc_norm,jdouble orientation,jdouble pressure,jdouble time_r);
+
+JNIEXPORT jint JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_setCurrentFloorIndex(JNIEnv *, jclass,jint floorId);
 
 JNIEXPORT jint JNICALL Java_com_xihe_newpdrsdk_locator_PdrStep_getCurrentFloorIndex(JNIEnv *, jclass);
 

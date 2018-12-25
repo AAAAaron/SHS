@@ -52,6 +52,7 @@ int AttitudeObserver::addData(double accNorm,double orientation ,double pressure
   }
   
   dataPoint cp;
+//   memset();
   cp.data_z=pressure;
   cp.time_r=time_c;
   cp.data_x=accNorm;//data_x作为加速度摸值
@@ -87,7 +88,7 @@ int AttitudeObserver::addData(double accNorm,double orientation ,double pressure
 	recordPressure_/=calDifBuff.size();
 
       }
-    
+
       cp.value_flitered+=pressure_.back().value_flitered;
       cp.value_flitered+=(pressure-pressure_[pressure_.size()-point_count_].data_z)/point_count_;
       
@@ -102,7 +103,7 @@ int AttitudeObserver::addData(double accNorm,double orientation ,double pressure
       double difMaxMin=max_calDifBuff-min_calDifBuff;
       
       difBuffer.push_back(difMaxMin);
-      
+//       cout<<"difMaxMin"<<difMaxMin<<endl;
       if(difBuffer.size()>=proCalLength)
       {
 	double max_difBuffer=*max_element(difBuffer.end()-proCalLength,difBuffer.end()-1);
@@ -220,12 +221,12 @@ void AttitudeObserver::calculateChangeFloorType()
   unsigned int MaxJ=0;
   if((pressure_.size()-FS*6)>MaxJ)
   {   
-    MaxJ=int(pressure_.size()-FS*6);
+    MaxJ=(int)(pressure_.size()-FS*6);
   }
 
   for(unsigned int j=MaxJ;j< pressure_.size()-FS;j++)
   {  
-      KkValue=ISCHANGEFLOOR*(pressure_[j-FS*fous].value_flitered)+pressure_[j+FS].value_flitered-2*pressure_[j].value_flitered;
+      KkValue=ISCHANGEFLOOR*(pressure_[j-FS*fous].value_flitered+pressure_[j+FS].value_flitered-2*pressure_[j].value_flitered);
       if(KkValue<minKkValue)
       {
 	minKkValue=KkValue;
@@ -280,7 +281,8 @@ int AttitudeObserver::getChangeType3(double k, double acc_std)
 void AttitudeObserver::getFrequency()
 {
   double deta_time=pressure_.back().time_r-pressure_[0].time_r;
-  FS=pressure_.size()*1.0/deta_time;
+  FS=(int)(pressure_.size()*1.0/deta_time);
+//   cout<<FS<<endl;
 }
 void AttitudeObserver::addFloorHeight(double floorHeight)
 {
@@ -312,6 +314,11 @@ int AttitudeObserver::getCurrentFloorIndex()
 {
   return currentFloorIndex;
 }
+void AttitudeObserver::setCurrentFloorIndex(int floorId)
+{
+  currentFloorIndex=floorId;
+}
+
 double AttitudeObserver::getAccStd()
 {
   return accChange_;

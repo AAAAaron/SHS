@@ -293,7 +293,7 @@ bool PDRSIM::adddata(double gyro_x,double gyro_y,double gyro_z,double linear_acc
 	linear_acc_y*=-Gravity;
 	linear_acc_z*=-Gravity;	
 	
-	time_r/=1e+6;
+// 	time_r/=1e+6;
 	
       }
 
@@ -463,7 +463,9 @@ void PDRSIM::set_OutAngle(int OutAngleIndex)
 void PDRSIM::set_IOS()
 {
   integral_signal=1;
-  this->atest->integral_signal=1;
+  if(atest!=NULL){
+    this->atest->integral_signal=1;
+  }
 }
 
 void PDRSIM::floorModuleAddFloorHeight(double floor_height)
@@ -490,6 +492,9 @@ void PDRSIM::floorModuleUpdateFloorHeightMatrix()
 }
 int PDRSIM::floorModuleAddData(double accNorm, double orientation, double pressure, double time_c)
 {
+  if(integral_signal==1){
+    accNorm*=Gravity;
+  }
   int res=floortest->addData(accNorm,orientation,pressure,time_c);
   if(floortest->ISCHANGEFLOOR!=0)
   {
