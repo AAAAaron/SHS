@@ -1,3 +1,6 @@
+add_executable( pdrv pdrv.cpp )
+target_link_libraries( pdrv SHS )
+
 add_executable( pdrsim main.cpp )
 target_link_libraries( pdrsim SHS )
 

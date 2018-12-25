@@ -1,6 +1,3 @@
-// SHS_pro.cpp : 定义控制台应用程序的入口点。
-//
-
 #include <fstream>
 #include <time.h>
 #include "common_include.h"
@@ -12,35 +9,30 @@ void OnPdrStepCallbackEvent(double  x, double y, double sl, double yaw ,double d
 //      cout<<x<<","<<y<<","<<","<<sl<<","<<yaw<<","<<deta_angle<<endl;
 }
 
-void OnFloorChangebackEvent(int  x, int y, double sl, double yaw ,int deta_angle)
-{
-     cout<<x<<","<<y<<","<<","<<sl<<","<<yaw<<","<<deta_angle<<endl;
-}
-
 int main(int argc, char** argv)
 {
   cout<<"-------"<<endl;
-//     SHS::DisplayAttitude dst;
+    SHS::DisplayAttitude dst;
     
     string lineStr2;
-// 	ifstream poiFile("../media/4FloorName.csv");
-//        while (getline(poiFile, lineStr2))  {
-// 	stringstream ss(lineStr2);
-// 	string str;  
-// 	vector<string> lineArray;  
-// 	// 按照逗号分隔  
-// 	POIPoint pp;
-// 	while (getline(ss, str, ','))  
-// 	{
-// 		lineArray.push_back(str); 
-// 	}
-// 	pp.x=atof(lineArray[3].c_str());
-// 	pp.y=atof(lineArray[4].c_str());
-// 	pp.name=lineArray[2];
-// 	dst.poiVector.push_back(pp);
-//        }
-//     poiFile.close();
-//     cout<<"poi"<<dst.poiVector.size()<<endl;
+	ifstream poiFile("../media/4FloorName.csv");
+       while (getline(poiFile, lineStr2))  {
+	stringstream ss(lineStr2);
+	string str;  
+	vector<string> lineArray;  
+	// 按照逗号分隔  
+	POIPoint pp;
+	while (getline(ss, str, ','))  
+	{
+		lineArray.push_back(str); 
+	}
+	pp.x=atof(lineArray[3].c_str());
+	pp.y=atof(lineArray[4].c_str());
+	pp.name=lineArray[2];
+	dst.poiVector.push_back(pp);
+       }
+    poiFile.close();
+    cout<<"poi"<<dst.poiVector.size()<<endl;
     
     
 	Eigen::Quaterniond test=angle2quat(M_PI/2,0,0);//如果用这个函数的话，实际输入要求是yaw,roll,
@@ -177,9 +169,7 @@ int main(int argc, char** argv)
 	
 	//ifstream inFile("./acc.csv");//index,ax,ay,az,gx,gy,gz,mx,my,mz,grox,groy,groz,pressure,time
 // 	ifstream inFile("../data/logfile_2018_11_28_16_21_23.csv");//这个目录指的是运行目录，锁定在当前运行目录下
-// 	ifstream inFile(SHS::Config::get<string> ( "file_name" ));
-	ifstream inFile(argv[1]);
-	cout<<argv[1]<<endl;
+	ifstream inFile(SHS::Config::get<string> ( "file_name" ));
 // 	vector<string> gf;
 // 	gf=getFiles("../data/");
 // 	ifstream inFile("./test.csv");
@@ -228,40 +218,40 @@ int main(int argc, char** argv)
 	  
 // 	test=angle2quat(_ptest.atest->Att(2),_ptest.atest->Att(0),_ptest.atest->Att(1));
 // 	test=test.inverse();
-// 	test=Eigen::Quaterniond(_ptest.atest->quaternion.w(),-_ptest.atest->quaternion.y(),-_ptest.atest->quaternion.x(),_ptest.atest->quaternion.z());
-// 	//以这种方式是可以对上的，使得安卓正常对上了,苹果也可以正常使用
-// 	//主要是cv用的方式和eigen的有点差别，
-// 	Eigen::Vector3d cphone(15.53,17.9,1);
-// 	
-// 	if(lineArray[28]>-1e-5&&lineArray.size()>29)
-// 	{
-// 	  Eigen::Quaterniond qpw(test);
-// 	  dst.ProcessImgAr(SHS::Config::get<string> ( "file_dir" )+to_string(int(lineArray[28]))+".jpg",cphone,qpw,_ptest.atest->GetRealFace());
-// 	}
-// // 	cout<<"------"<<endl;
-// // 	cout<<_ptest.atest->Att*180.0/M_PI<<endl;
-// 	dst.SetStringContent("GetRealYaw:"+to_string(_ptest.atest->GetRealYaw()*180.0/M_PI)+"\n"+"GetRealFace:"+to_string(_ptest.atest->GetRealFace()*180.0/M_PI)+"\n"+"yaw:"+to_string(_ptest.atest->Att(2)*180.0/M_PI)+"\n"+"pitch:"+to_string(_ptest.atest->Att(1)*180.0/M_PI)+"\n"+"roll:"+to_string(_ptest.atest->Att(0)*180.0/M_PI));
-// // 	getchar();
-//  	cv::Affine3d PhoneAtt(
-//             cv::Affine3d::Mat3( test.toRotationMatrix()(0,0),test.toRotationMatrix()(1,0),test.toRotationMatrix()(2,0),
-// 				test.toRotationMatrix()(0,1),test.toRotationMatrix()(1,1),test.toRotationMatrix()(2,1),
-// 				test.toRotationMatrix()(0,2),test.toRotationMatrix()(1,2),test.toRotationMatrix()(2,2)
-//             ), 
-//             cv::Affine3d::Vec3(
-//                 0,0,0
-//             )
-//         );
-// 	
-// 	cv::Affine3d World(
-//             cv::Affine3d::Mat3( worldq.toRotationMatrix()(0,0),worldq.toRotationMatrix()(1,0),worldq.toRotationMatrix()(2,0),
-// 				worldq.toRotationMatrix()(0,1),worldq.toRotationMatrix()(1,1),worldq.toRotationMatrix()(2,1),
-// 				worldq.toRotationMatrix()(0,2),worldq.toRotationMatrix()(1,2),worldq.toRotationMatrix()(2,2)
-//             ), 
-//             cv::Affine3d::Vec3(
-//                 0,0,0
-//             )
-//         );   
-// 	dst.SetCurrentFrame(PhoneAtt,World);
+	test=Eigen::Quaterniond(_ptest.atest->quaternion.w(),-_ptest.atest->quaternion.y(),-_ptest.atest->quaternion.x(),_ptest.atest->quaternion.z());
+	//以这种方式是可以对上的，使得安卓正常对上了,苹果也可以正常使用
+	//主要是cv用的方式和eigen的有点差别，
+	Eigen::Vector3d cphone(15.53,17.9,1);
+	
+	if(lineArray[28]>-1e-5&&lineArray.size()>29)
+	{
+	  Eigen::Quaterniond qpw(test);
+	  dst.ProcessImgAr(SHS::Config::get<string> ( "file_dir" )+to_string(int(lineArray[28]))+".jpg",cphone,qpw,_ptest.atest->GetRealFace());
+	}
+// 	cout<<"------"<<endl;
+// 	cout<<_ptest.atest->Att*180.0/M_PI<<endl;
+	dst.SetStringContent("GetRealYaw:"+to_string(_ptest.atest->GetRealYaw()*180.0/M_PI)+"\n"+"GetRealFace:"+to_string(_ptest.atest->GetRealFace()*180.0/M_PI)+"\n"+"yaw:"+to_string(_ptest.atest->Att(2)*180.0/M_PI)+"\n"+"pitch:"+to_string(_ptest.atest->Att(1)*180.0/M_PI)+"\n"+"roll:"+to_string(_ptest.atest->Att(0)*180.0/M_PI));
+// 	getchar();
+ 	cv::Affine3d PhoneAtt(
+            cv::Affine3d::Mat3( test.toRotationMatrix()(0,0),test.toRotationMatrix()(1,0),test.toRotationMatrix()(2,0),
+				test.toRotationMatrix()(0,1),test.toRotationMatrix()(1,1),test.toRotationMatrix()(2,1),
+				test.toRotationMatrix()(0,2),test.toRotationMatrix()(1,2),test.toRotationMatrix()(2,2)
+            ), 
+            cv::Affine3d::Vec3(
+                0,0,0
+            )
+        );
+	
+	cv::Affine3d World(
+            cv::Affine3d::Mat3( worldq.toRotationMatrix()(0,0),worldq.toRotationMatrix()(1,0),worldq.toRotationMatrix()(2,0),
+				worldq.toRotationMatrix()(0,1),worldq.toRotationMatrix()(1,1),worldq.toRotationMatrix()(2,1),
+				worldq.toRotationMatrix()(0,2),worldq.toRotationMatrix()(1,2),worldq.toRotationMatrix()(2,2)
+            ), 
+            cv::Affine3d::Vec3(
+                0,0,0
+            )
+        );   
+	dst.SetCurrentFrame(PhoneAtt,World);
 // 	_ptest.atest->Att(2)*180.0/M_PI
 // 	dst.SetStringContent("ss");
 	if (_ptest.ISSTEP)
@@ -269,7 +259,7 @@ int main(int argc, char** argv)
 // 		cout<<lineArray[13]<<endl;
 // 		_ptest.setXY(20,20);
 // 		cout<<count<<"step"<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<endl;		
- 		outFile<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.cur_index<<","<<_ptest.cur_time<<endl;
+//  		outFile<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.cur_index<<","<<_ptest.cur_time<<endl;
 // 		cout<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.cur_index<<","<<_ptest.cur_time<<endl;
 	}
 	
@@ -290,74 +280,3 @@ int main(int argc, char** argv)
 	return 0;
 
 }
-//测气压
-// int main22(int argc, char** argv)
-// {
-//     string lineStr2;
-// 	Eigen::Quaterniond test=angle2quat(M_PI/2,0,0);//如果用这个函数的话，实际输入要求是yaw,roll,
-// 	Eigen::Quaterniond worldq=angle2quat(0,0,0);
-//     SHS::Config::setParameterFile ("../config/default.yaml");
-//     
-// 	time_t start,stop;
-// 	start = time(NULL);
-// 
-// 	SHS::PDRSIM _ptest;
-// 	_ptest.set_IOS();
-// 	_ptest.setFloorCallBack(OnFloorChangebackEvent);
-// 	_ptest.InitFloorModule(4);
-// 	_ptest.stest->set_para(1.3,0.9);
-// 	int mode=SHS::Config::get<int> ( "choose_method" );
-// 	double setyaw=SHS::Config::get<double> ( "init_yaw" );
-// 	double BJoffset=-7.0*M_PI/180.0;
-// 	_ptest.pdrEkf=bool( SHS::Config::get<int> ( "pdrEkf" ));
-// 	double initx=SHS::Config::get<double> ( "init_x" );
-// 	double inity=SHS::Config::get<double> ( "init_y" );
-// 	
-// 	if(bool( SHS::Config::get<int> ( "setIos" )))
-// 	{
-// 	  _ptest.set_IOS();
-// 	  cout<<"ios"<<endl;
-// 	}
-// 	double FFfloorHeights[] ={5.0f, 7.8f, 4.3f, 4.3f, 4.3f, 4.3f, 4.3f, 4.3f, 4.3f, 4.3f, 4.3f, 4.3f};
-// 	for(int i=0;i<12;i++)
-// 	{
-// 	_ptest.floorModuleAddFloorHeight(FFfloorHeights[i]);
-// 	}
-// 	_ptest.floorModuleUpdateFloorHeightMatrix();
-// 	
-// 	
-// // 	ifstream inFile(SHS::Config::get<string> ( "file_name" ));
-// 
-// 	ofstream outFile;
-// 	outFile.open("../data/data.csv");
-// 	string lineStr;
-// 	int count=0;
-// 
-// 	while (getline(inFile, lineStr))  {
-// 	stringstream ss(lineStr);
-// 	string str;  
-// 	vector<double> lineArray;  
-// 	// 按照逗号分隔  
-// 	
-// 	while (getline(ss, str, ','))  
-// 	{
-// 		lineArray.push_back(atof(str.c_str())); 
-// 	}
-// 	count++;
-// 	int Fchange=_ptest.floorModuleAddData(lineArray[0],lineArray[1],lineArray[2],lineArray[3]);
-// 	if (Fchange!=0)
-// 	{
-// // 	outFile<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.cur_index<<","<<_ptest.cur_time<<endl;	}
-// 	  cout<<_ptest.floortest->currentFloorIndex<<endl;
-// 	  
-// 	}
-// 	}
-// 	stop = time(NULL);
-// 	cout<<stop-start<<"s time"<<endl;
-// 	cout<<"-------------"<<mode<<endl;
-// 	inFile.close();
-// 	outFile.close();
-// // 	getchar();
-// 	cout<<"-------------"<<mode<<endl;
-// 	return 0;
-// }
