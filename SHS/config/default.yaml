@@ -4,7 +4,11 @@
 #dataset_dir: /media/aaron/新加卷/dataset/rgbd_dataset_freiburg1_xyz/rgbd_dataset_freiburg1_xyz
 # file_name: /home/aaron/projects/SHS/data/logfile_2018_11_28_16_21_23.csv
 # file_name: /home/aaron/slambook/slambook-master/iph/northaXC1/sensor_raw_5BEBFAD5.csv
-file_name: /home/aaron/slambook/slambook-master/xiaomi/pitch/sensor_raw_5C0F473A.csv
+# file_dir: /home/aaron/slambook/slambook-master/iph/2aXC1/
+# file_name: /home/aaron/slambook/slambook-master/iph/2aXC1/sensor_raw_5C10DC6D.csv
+file_name: /home/aaron/collectData/beij/粟坤1PRES/860100010020300002_B1_1.csv
+file_dir: /home/aaron/collectData/
+# file_name: /home/aaron/slambook/slambook-master/xiaomi/04/sensor_raw_5C0E2F04.csv
 
 # camera intrinsics
 # fr1
@@ -27,10 +31,10 @@ file_name: /home/aaron/slambook/slambook-master/xiaomi/pitch/sensor_raw_5C0F473A
 
 
 init_yaw:0
-init_x:3.6
-init_y:10.5
+init_x:0
+init_y:0
 choose_method:2
 pdrEkf:0
 magoffset:-7
 setIos:0
-DAT:1
+DAT:0

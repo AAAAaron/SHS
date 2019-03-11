@@ -9,7 +9,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pylab as plt
-datafile='/home/aaron/projects/SHS/data/logfile_2018_11_28_16_21_23.txt'
+datafile='/home/aaron/collectData/beij/粟坤1PRES/860100010020300002_B1_1.txt'
 alpha=0.85
 ACCE=[]
 GRAVITY=[[0,0,9.806]]
@@ -58,7 +58,10 @@ for item in WIFI:
     item[2]=0
 
 gam=[]
-for item in range(len(MAGN)-1):
+
+cout=min(len(GYRO),len(MAGN),len(ACCE))
+
+for item in range(cout-1):
     tmp=[]
     if item in INDEX:
         tmp.append(INDEX.index(item))

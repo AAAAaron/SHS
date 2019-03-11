@@ -31,5 +31,10 @@
 *.out
 *.app
 
-build/
-obj/
+build
+build/src
+obj
+kdev4
+vscode
+img
+bin

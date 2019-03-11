@@ -11,6 +11,7 @@ add_library( SHS SHARED
   displayattitude.cpp
   config.cpp
   attitudeobserver.cpp
+  ktransfcoordinate.cpp
 )
 
 target_link_libraries( SHS

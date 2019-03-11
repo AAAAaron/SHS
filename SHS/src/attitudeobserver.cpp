@@ -35,6 +35,24 @@ AttitudeObserver::AttitudeObserver(int floorId)
   threshold = 0.06;//阈值
   factor = 0.8;//楼层高度的比例
   factorBase = 0.1;//刷新基线的要求
+  floorHeading=0;//默认的方向是0
+}
+AttitudeObserver::AttitudeObserver()
+{
+  FS=0;//未设置时是0；
+  initTime_=0;
+  currentFloorIndex=-100;//初始化要求输入当前层在层指纹中的序号,不使用默认是-100
+  currentDataIndex_=0;
+  point_count_=0;
+  pro_time=3;
+  floorHeight_.clear();
+  recordPressure_=0;
+  ISCHANGEFLOOR=0;
+  FLOORTYPE=0;
+  threshold = 0.06;//阈值
+  factor = 0.8;//楼层高度的比例
+  factorBase = 0.1;//刷新基线的要求
+  floorHeading=0;//默认的方向是0
 }
 
 AttitudeObserver::~AttitudeObserver()
@@ -43,12 +61,17 @@ AttitudeObserver::~AttitudeObserver()
 }
 int difBuffLength=0;
 int proCalLength=4;
+//这个函数会返回是否是上下楼，上下是-1,1，确认顺序反人类,默认是0，出现问题是-100
 int AttitudeObserver::addData(double accNorm,double orientation ,double pressure, double time_c)
 {
+  if(currentFloorIndex==-100)
+  {
+    return -100;
+  }
   currentDataIndex_++;
   ISCHANGEFLOOR=0;
   if(abs(pressure)<=1e-5 ||abs(accNorm)<1e-5){
-    return 0;
+    return -100;
   }
   
   dataPoint cp;
@@ -264,6 +287,23 @@ double AttitudeObserver::leastSquare(int ind_min)
         return k;
 	
 }
+void AttitudeObserver::calLikeAngle(int ind_min)
+{
+  double calsinx=0,calcosx=0,magtheta=0;
+	for(int j=ind_min-FS*fous-1;j<ind_min;j++)
+	{
+	  calsinx+=sin(pressure_[j].data_y);
+	  calcosx+=cos(pressure_[j].data_y);
+	}
+	calsinx/=(FS*fous);
+	calcosx/=(FS*fous);
+	magtheta=sqrt(calsinx*calsinx+calcosx*calcosx);
+	floorHeading=acos(calcosx/magtheta);
+	if(calsinx<0)
+	{
+	  floorHeading*=-1.0;
+	}
+}
 
 int AttitudeObserver::getChangeType3(double k, double acc_std)
 {
@@ -330,6 +370,10 @@ double AttitudeObserver::getK()
 int AttitudeObserver::getFloorType()
 {
   return FLOORTYPE;
+}
+double AttitudeObserver::getCurrentFloorHeading()
+{
+  return floorHeading;
 }
 
 

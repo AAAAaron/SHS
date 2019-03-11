@@ -50,7 +50,7 @@ int main1(int argc, char** argv){
 	return 0;
 }
 
-int main(int argc, char** argv){
+int main2(int argc, char** argv){
   SHS::PDRSIM tatt;
   tatt.InitFloorModule(11);
   ifstream inFile("/home/aaron/projects/SHS/data/tos/楼梯指纹/F11-F1/301F11-1aWCJ1_sensor_raw_5B1A5767.csv");
@@ -80,15 +80,20 @@ int main(int argc, char** argv){
 	
 	  double acc_norm=sqrt(lineArray[1]*lineArray[1]+lineArray[2]*lineArray[2]+lineArray[3]*lineArray[3]);
 	  tatt.floorModuleAddData(acc_norm,lineArray[24],lineArray[14],lineArray[27]);
-/*	  if(tatt.pressure_.size()>0){
+		/*	  if(tatt.pressure_.size()>0){
 	    outFile<<tatt.pressure_.back().time_r-tatt.pressure_[0].time_r<<","<<tatt.pressure_.back().value_flitered<<endl;	  
 	    
 	  } */   
 	  
-	 }
+	}
   
-  	inFile.close();
+  inFile.close();
 	outFile.close();
-// 	getchar();
+	// 	getchar();
 	return 0;
+}
+
+int main(int argc, char **argv)
+{
+	cout<<"hellovscode333"<<endl;
 }

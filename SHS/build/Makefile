@@ -124,43 +124,17 @@ SHS/fast:
 .PHONY : SHS/fast
 
 #=============================================================================
-# Target rules for targets named pdrsim
+# Target rules for targets named tstraf
 
 # Build rule for target.
-pdrsim: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pdrsim
-.PHONY : pdrsim
+tstraf: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tstraf
+.PHONY : tstraf
 
 # fast build rule for target.
-pdrsim/fast:
-	$(MAKE) -f test/CMakeFiles/pdrsim.dir/build.make test/CMakeFiles/pdrsim.dir/build
-.PHONY : pdrsim/fast
-
-#=============================================================================
-# Target rules for targets named disAtt
-
-# Build rule for target.
-disAtt: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 disAtt
-.PHONY : disAtt
-
-# fast build rule for target.
-disAtt/fast:
-	$(MAKE) -f test/CMakeFiles/disAtt.dir/build.make test/CMakeFiles/disAtt.dir/build
-.PHONY : disAtt/fast
-
-#=============================================================================
-# Target rules for targets named testp
-
-# Build rule for target.
-testp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testp
-.PHONY : testp
-
-# fast build rule for target.
-testp/fast:
-	$(MAKE) -f test/CMakeFiles/testp.dir/build.make test/CMakeFiles/testp.dir/build
-.PHONY : testp/fast
+tstraf/fast:
+	$(MAKE) -f test/CMakeFiles/tstraf.dir/build.make test/CMakeFiles/tstraf.dir/build
+.PHONY : tstraf/fast
 
 # Help Target
 help:
@@ -171,9 +145,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... SHS"
-	@echo "... pdrsim"
-	@echo "... disAtt"
-	@echo "... testp"
+	@echo "... tstraf"
 .PHONY : help
 
 

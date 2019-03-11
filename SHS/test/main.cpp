@@ -290,6 +290,24 @@ int main(int argc, char** argv)
 	return 0;
 
 }
+//测转移是否正确
+int main22(int argc, char** argv)
+{
+  double theta=M_PI/4;
+  double coutheta=0;
+  for(int i=0;i<9;i++)
+  {
+    coutheta=acos(cos(theta*i));
+    if(sin(theta*i)<0)
+    {
+      coutheta*=-1.0;
+    }
+    cout<<"curtheta="<<theta*i<<"out "<<coutheta<<endl;
+  }
+  
+  
+}
+
 //测气压
 // int main22(int argc, char** argv)
 // {

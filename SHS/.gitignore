@@ -31,5 +31,15 @@
 *.out
 *.app
 
+*.json
+*.kdev4
+bin
+build
 build/
-obj/
+build/src
+obj
+vscode
+kdev4
+
+
+CMajeCache

@@ -498,7 +498,7 @@ int PDRSIM::floorModuleAddData(double accNorm, double orientation, double pressu
   int res=floortest->addData(accNorm,orientation,pressure,time_c);
   if(floortest->ISCHANGEFLOOR!=0)
   {
-  (*floorCallBack)(floortest->FLOORTYPE,floortest->ISCHANGEFLOOR,floortest->k_temp,floortest->accChange_,floortest->currentFloorIndex);
+  (*floorCallBack)(floortest->FLOORTYPE,floortest->ISCHANGEFLOOR,floortest->k_temp,floortest->floorHeading,floortest->currentFloorIndex);
   }
   return res;
 }
