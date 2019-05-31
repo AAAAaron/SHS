@@ -74,7 +74,7 @@ enum EulerTransformOrder
 enum CalAngelMethod{
   GYRO,AHRSROBUST};//角度方法的选择
 enum OutYaw{
-  YAW=0,INTEGRAL=1,INTERANGLE=2};//yaw角，积分角，和北的夹角
+  YAW=0,INTEGRAL=1,REALYAW=2,};//yaw角，积分角，和北的夹角
   
 template<typename _Tp>  
 int meanStdDev(const deque<_Tp>& mat, double* mean, double* variance, double* stddev)  

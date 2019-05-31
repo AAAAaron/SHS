@@ -1,4 +1,4 @@
-# Install script for directory: /home/aaron/projects/SHS/test
+# Install script for directory: /home/aaron/project/SHS/SHS/test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

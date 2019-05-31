@@ -23,7 +23,7 @@ namespace SHS {
 AhrsRobust::AhrsRobust()
 {
 		//quaternion;		
-        QSF_Mag=true;       
+        QSF_Mag=false;       
 	P = Eigen::Matrix<double,4,4>::Zero();
         Q = Eigen::Matrix<double,4,4>::Zero();       
    
@@ -59,7 +59,7 @@ void AhrsRobust::filterUpdate(double gyro_x, double gyro_y, double gyro_z, doubl
 {	
 //   cout<<"u chose the ahrsrobust filter and myindex is "<<myindex<<endl;
 //   cout<<this->Att<<endl;
-	this->QSF_Mag=true;
+	this->QSF_Mag=false;
 	dataPoint datmp;
 	double mean1 = 0., variance1 = 0., stddev1 = 0.; 
 	
@@ -211,10 +211,10 @@ void AhrsRobust::filterUpdate(double gyro_x, double gyro_y, double gyro_z, doubl
 		this->quaternion = Eigen::Quaterniond(X_state(0),X_state(1),X_state(2),X_state(3));
 		this->Att =quat2angle(this->quaternion);
 
-		Eigen::Vector3d Att2 =quat2angle( Eigen::Quaterniond(x_apriori(0),x_apriori(0),x_apriori(0),x_apriori(0)));
-		this->Att(1)=Att2(1);
-		this->Att(0)=Att2(0);
-		this->quaternion=angle2quat(Att(2),Att(1),Att(0));
+	//	Eigen::Vector3d Att2 =quat2angle( Eigen::Quaterniond(x_apriori(0),x_apriori(0),x_apriori(0),x_apriori(0)));
+	//	this->Att(1)=Att2(1);
+	//	this->Att(0)=Att2(0);
+	//	this->quaternion=angle2quat(Att(2),Att(1),Att(0));
 	}
 	
 	if (this->IFSETYAW)

@@ -6,7 +6,8 @@
 # file_name: /home/aaron/slambook/slambook-master/iph/northaXC1/sensor_raw_5BEBFAD5.csv
 # file_dir: /home/aaron/slambook/slambook-master/iph/2aXC1/
 # file_name: /home/aaron/slambook/slambook-master/iph/2aXC1/sensor_raw_5C10DC6D.csv
-file_name: /home/aaron/collectData/beij/粟坤1PRES/860100010020300002_B1_1.csv
+# file_name: /home/aaron/collectData/beij/粟坤1PRES/860100010020300002_B1_1.csv
+file_name: /media/aaron/新加卷1/工作记录/项目产出及记录/19年羲和后台过程归档/第二阶段材料整理/测试过程/data/pixel011-F7_1/ysj/F7_1.csv
 file_dir: /home/aaron/collectData/
 # file_name: /home/aaron/slambook/slambook-master/xiaomi/04/sensor_raw_5C0E2F04.csv
 
@@ -29,12 +30,14 @@ file_dir: /home/aaron/collectData/
 #keyframe_rotation: 0.1
 #keyframe_translation: 0.1
 
-
-init_yaw:0
-init_x:0
-init_y:0
-choose_method:2
-pdrEkf:0
-magoffset:-7
-setIos:0
-DAT:0
+#目前来看，对于我们这个问题，直接使用２方法，给出初始位置是最稳定的方案
+#或者也可以使用g+m选择的方案，即７的方案，这个方案无所谓初值，但是可能会受到环境的影响
+# 13是和３完全一样的方法
+init_yaw: 0
+init_x: 0
+init_y: 0
+choose_method: 7
+pdrEkf: 0
+magoffset: -7
+setIos: 0
+DAT: 0

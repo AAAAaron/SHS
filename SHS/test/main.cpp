@@ -9,7 +9,7 @@
 #include "config.h"
 void OnPdrStepCallbackEvent(double  x, double y, double sl, double yaw ,double deta_angle)
 {
-//      cout<<x<<","<<y<<","<<","<<sl<<","<<yaw<<","<<deta_angle<<endl;
+     cout<<x<<","<<y<<","<<","<<sl<<","<<yaw<<","<<deta_angle<<endl;
 }
 
 void OnFloorChangebackEvent(int  x, int y, double sl, double yaw ,int deta_angle)
@@ -177,8 +177,8 @@ int main(int argc, char** argv)
 	
 	//ifstream inFile("./acc.csv");//index,ax,ay,az,gx,gy,gz,mx,my,mz,grox,groy,groz,pressure,time
 // 	ifstream inFile("../data/logfile_2018_11_28_16_21_23.csv");//这个目录指的是运行目录，锁定在当前运行目录下
-// 	ifstream inFile(SHS::Config::get<string> ( "file_name" ));
-	ifstream inFile(argv[1]);
+	ifstream inFile(SHS::Config::get<string> ( "file_name" ));
+	// ifstream inFile(argv[1]);
 	cout<<argv[1]<<endl;
 // 	vector<string> gf;
 // 	gf=getFiles("../data/");
@@ -212,7 +212,8 @@ int main(int argc, char** argv)
 	if(bool( SHS::Config::get<int> ( "setIos" )))
 	{
 // 	_ptest.adddata( lineArray[7],lineArray[8],lineArray[9], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[10],lineArray[11],lineArray[12],lineArray[25]);	//旧版王超采集DAT		
-	_ptest.adddata( lineArray[7],lineArray[8],lineArray[9], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[10],lineArray[11],lineArray[12],lineArray[27]);	//采集DAT	
+	// _ptest.adddata( lineArray[7],lineArray[8],lineArray[9], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[10],lineArray[11],lineArray[12],lineArray[27]);	//采集DAT	
+		_ptest.adddata( lineArray[10],lineArray[11],lineArray[12], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[13],lineArray[14],lineArray[15],lineArray[17]);	//采集DAT
 	}
 	else{
 	  if(!bool( SHS::Config::get<int> ( "DAT" )))
@@ -269,7 +270,7 @@ int main(int argc, char** argv)
 // 		cout<<lineArray[13]<<endl;
 // 		_ptest.setXY(20,20);
 // 		cout<<count<<"step"<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<endl;		
- 		outFile<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.cur_index<<","<<_ptest.cur_time<<endl;
+ 		outFile<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.get_mx()<<","<<_ptest.get_my()<<","<<_ptest.get_mz()<<","<<_ptest.cur_index<<","<<_ptest.cur_time<<endl;
 // 		cout<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.cur_index<<","<<_ptest.cur_time<<endl;
 	}
 	

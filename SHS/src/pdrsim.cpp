@@ -27,6 +27,7 @@ static vector<PDRPoint> pdresult;
 // static	SHS::AhrsAngle atest;
 Eigen::Vector3d wbody(0,0,0);
 Eigen::Vector3d wnav(0,0,0);
+Eigen::Vector3d magEigenVector(0,0,0);
 
 double inte_wz;
 double thisyaw=0;
@@ -52,6 +53,7 @@ PDRSIM::PDRSIM()
 	YAWORINTE=YAW;
 	pdrEkf=false;//是否使用ekf,ekf要求必须获得有效的姿态，默认使用,12,5先把所有的都不使用新的
 	pdrEkfInit();
+	magAfterRotate=Eigen::Vector3d(0,0,0);
 }
 
 void PDRSIM::InitFloorModule(int curFloorIndex)
@@ -59,7 +61,11 @@ void PDRSIM::InitFloorModule(int curFloorIndex)
   floortest = new SHS::AttitudeObserver(curFloorIndex);
 }
 
-
+//实际使用中发现，对于移动端这个场景，由于重力加速度是前端用低通滤波器分离出来的，效果不是很稳定
+//就导致了卡尔曼基于这个修正惯导的四元素迭代的时候反而引入和误差，
+//如果不加选择的使用地磁，也会带来问题，也就是AhrsRobust直接使用地磁的话是不如AhrsQsmfFilter
+//后者和前者略微有些不同，后者使用了一个基于划窗选择地磁的策略，目前看，应用较好，并且这个方法不需要预先设置初始角度
+//５方法也就是外面的方法１３是直接用重力分量乘，简单明显，人走的规矩，不干扰的情况下，可直接使用
 void PDRSIM::choose_ahrs(int ahrs_index)
 {
   switch(ahrs_index){
@@ -329,7 +335,7 @@ bool PDRSIM::adddata(double gyro_x,double gyro_y,double gyro_z,double linear_acc
 	    thisyaw+=mag_offset;
 	    break;
 	  }
-	  case INTERANGLE:{
+	  case REALYAW:{
 // 	    cout<<"INTERANGLE"<<endl;
 	    thisyaw=atest->GetRealYaw();
 	    thisyaw+=mag_offset;
@@ -350,7 +356,8 @@ bool PDRSIM::adddata(double gyro_x,double gyro_y,double gyro_z,double linear_acc
 	if (stest->ISSTEP)
 	{
 		this->cur_index++;
-		
+		magEigenVector<<mag_x,mag_y,mag_z;
+		magAfterRotate=atest->quaternion*magEigenVector;
 		if(!pdrEkf){
 		this->cal_pdr(stest->stride_length,thisyaw);//测试步长的ekf
 		}
@@ -502,6 +509,17 @@ int PDRSIM::floorModuleAddData(double accNorm, double orientation, double pressu
   }
   return res;
 }
-
+double PDRSIM::get_mx()
+{
+	return magAfterRotate(0);
+}
+double PDRSIM::get_my()
+{
+	return magAfterRotate(1);
+}
+double PDRSIM::get_mz()
+{
+	return magAfterRotate(2);
+}
   
 }

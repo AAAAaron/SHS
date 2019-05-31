@@ -11,6 +11,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/SHS.dir/displayattitude.cpp.o"
   "CMakeFiles/SHS.dir/config.cpp.o"
   "CMakeFiles/SHS.dir/attitudeobserver.cpp.o"
+  "CMakeFiles/SHS.dir/ktransfcoordinate.cpp.o"
   "../../lib/libSHS.pdb"
   "../../lib/libSHS.so"
 )

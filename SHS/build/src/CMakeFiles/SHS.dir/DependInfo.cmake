@@ -4,18 +4,19 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/aaron/projects/SHS/src/ahrsangle.cpp" "/home/aaron/projects/SHS/build/src/CMakeFiles/SHS.dir/ahrsangle.cpp.o"
-  "/home/aaron/projects/SHS/src/ahrsqsmfbfilter.cpp" "/home/aaron/projects/SHS/build/src/CMakeFiles/SHS.dir/ahrsqsmfbfilter.cpp.o"
-  "/home/aaron/projects/SHS/src/ahrsqsmffilter.cpp" "/home/aaron/projects/SHS/build/src/CMakeFiles/SHS.dir/ahrsqsmffilter.cpp.o"
-  "/home/aaron/projects/SHS/src/ahrsrobust.cpp" "/home/aaron/projects/SHS/build/src/CMakeFiles/SHS.dir/ahrsrobust.cpp.o"
-  "/home/aaron/projects/SHS/src/attitudeobserver.cpp" "/home/aaron/projects/SHS/build/src/CMakeFiles/SHS.dir/attitudeobserver.cpp.o"
-  "/home/aaron/projects/SHS/src/btwfilter.cpp" "/home/aaron/projects/SHS/build/src/CMakeFiles/SHS.dir/btwfilter.cpp.o"
-  "/home/aaron/projects/SHS/src/config.cpp" "/home/aaron/projects/SHS/build/src/CMakeFiles/SHS.dir/config.cpp.o"
-  "/home/aaron/projects/SHS/src/displayattitude.cpp" "/home/aaron/projects/SHS/build/src/CMakeFiles/SHS.dir/displayattitude.cpp.o"
-  "/home/aaron/projects/SHS/src/gyro.cpp" "/home/aaron/projects/SHS/build/src/CMakeFiles/SHS.dir/gyro.cpp.o"
-  "/home/aaron/projects/SHS/src/pdrsim.cpp" "/home/aaron/projects/SHS/build/src/CMakeFiles/SHS.dir/pdrsim.cpp.o"
-  "/home/aaron/projects/SHS/src/phonerotateangle.cpp" "/home/aaron/projects/SHS/build/src/CMakeFiles/SHS.dir/phonerotateangle.cpp.o"
-  "/home/aaron/projects/SHS/src/step.cpp" "/home/aaron/projects/SHS/build/src/CMakeFiles/SHS.dir/step.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/ahrsangle.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/ahrsangle.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/ahrsqsmfbfilter.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/ahrsqsmfbfilter.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/ahrsqsmffilter.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/ahrsqsmffilter.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/ahrsrobust.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/ahrsrobust.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/attitudeobserver.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/attitudeobserver.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/btwfilter.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/btwfilter.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/config.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/config.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/displayattitude.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/displayattitude.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/gyro.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/gyro.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/ktransfcoordinate.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/ktransfcoordinate.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/pdrsim.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/pdrsim.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/phonerotateangle.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/phonerotateangle.cpp.o"
+  "/home/aaron/project/SHS/SHS/src/step.cpp" "/home/aaron/project/SHS/SHS/build/src/CMakeFiles/SHS.dir/step.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

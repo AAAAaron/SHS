@@ -74,6 +74,9 @@ public:
 	double get_SL();
 	double get_YAW();
 	double get_deta_angle();
+	double get_mx();
+	double get_my();
+	double get_mz();
 	void set_magoffset(double offset);
 	void set_IOS();
 	void choose_ahrs(int ahrs_index);
@@ -100,6 +103,7 @@ private:
 	Eigen::MatrixXd dx;
 	Eigen::VectorXd Pos_ins_;
 	Eigen::VectorXd step_pvlast_;
+	Eigen::Vector3d magAfterRotate;
 	
   
 };

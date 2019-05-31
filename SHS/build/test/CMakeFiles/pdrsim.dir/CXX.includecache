@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -118,19 +118,19 @@ ahrsangle.h
 common_include.h
 ../include/common_include.h
 
-/home/aaron/projects/SHS/test/main.cpp
+/home/aaron/project/SHS/SHS/test/main.cpp
 fstream
 -
 time.h
 -
 common_include.h
-/home/aaron/projects/SHS/test/common_include.h
+/home/aaron/project/SHS/SHS/test/common_include.h
 pdrsim.h
-/home/aaron/projects/SHS/test/pdrsim.h
+/home/aaron/project/SHS/SHS/test/pdrsim.h
 displayattitude.h
-/home/aaron/projects/SHS/test/displayattitude.h
+/home/aaron/project/SHS/SHS/test/displayattitude.h
 config.h
-/home/aaron/projects/SHS/test/config.h
+/home/aaron/project/SHS/SHS/test/config.h
 
 /usr/include/eigen3/Eigen/Cholesky
 Core
@@ -2301,4 +2301,8 @@ opencv2/viz/viz3d.hpp
 /usr/local/include/opencv2/viz/widgets.hpp
 opencv2/viz/types.hpp
 -
+
+/usr/local/include/opencv2/xfeatures2d/cuda.hpp
+opencv2/core/cuda.hpp
+/usr/local/include/opencv2/xfeatures2d/opencv2/core/cuda.hpp
 
