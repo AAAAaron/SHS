@@ -40,7 +40,7 @@ PDRSIM::PDRSIM()
 	floortest=NULL;
 	floorCallBack=NULL;
 	this->callback=NULL;
-	this->cur_time=0;
+	this->cur_time=0.0;
 	this->cur_index=0;
 	pdresult.clear();
 
@@ -286,7 +286,7 @@ void PDRSIM::InitialXY(double x,double y)
 
 bool PDRSIM::adddata(double gyro_x,double gyro_y,double gyro_z,double linear_acc_x,double linear_acc_y,double linear_acc_z,double gx,double gy,double gz,double mag_x,double mag_y,double mag_z,double time_r)
 {
-  
+
 	//acc_x是全部的加速度
       if(integral_signal==1){
 // 	gyro_x*=-1;
@@ -319,6 +319,7 @@ bool PDRSIM::adddata(double gyro_x,double gyro_y,double gyro_z,double linear_acc
 // 	    thisyaw+=integral_signal*wnav(2)*(time_r-cur_time);
 // 	    inte_wz+=integral_signal*wnav(2)*(time_r-cur_time);
 	    thisyaw+=-1*wnav(2)*(time_r-cur_time);
+			// thisyaw+=mag_offset;
 	    inte_wz+=-1*wnav(2)*(time_r-cur_time);
 // 	    if(pdresult.size()==0){
 // 	      thisyaw+=integral_signal*inte_wz;
@@ -332,13 +333,13 @@ bool PDRSIM::adddata(double gyro_x,double gyro_y,double gyro_z,double linear_acc
 	  case YAW:{
 // 	    cout<<"YAW"<<endl;
 	    thisyaw=atest->Att(2);
-	    thisyaw+=mag_offset;
+	    // thisyaw+=mag_offset;
 	    break;
 	  }
 	  case REALYAW:{
 // 	    cout<<"INTERANGLE"<<endl;
 	    thisyaw=atest->GetRealYaw();
-	    thisyaw+=mag_offset;
+	    // thisyaw+=mag_offset;
 	    break;
 	  }
 	  default:
@@ -429,6 +430,7 @@ void PDRSIM::setFloorCallBack(PDRSIM::FLOORCALLBACK fun)
 void PDRSIM::set_magoffset(double offset)
 {
 	this->mag_offset=offset;
+	thisyaw+=this->mag_offset;
 }
 
 void PDRSIM::setXY(double x, double y)
@@ -521,5 +523,8 @@ double PDRSIM::get_mz()
 {
 	return magAfterRotate(2);
 }
-  
+double PDRSIM::get_time()
+{
+	return this->cur_time;
+}
 }

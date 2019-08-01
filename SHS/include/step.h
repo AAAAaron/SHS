@@ -37,7 +37,7 @@ public:
 	double umbral_Acc; // 峰值最小阈值
 	double umbral_Acc_descarte; //% 峰值最大阈值
 	double gravity;//重力
-	bool ISSTEP;//标识是否为步
+	bool ISSTEP=false;//标识是否为步
 	double stride_length;//步长
 	unsigned int cout_vector;
 	

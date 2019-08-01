@@ -54,11 +54,12 @@ int main(int argc, char** argv)
 	_ptest.stest->set_para(1.3,0.9);
 	int mode=SHS::Config::get<int> ( "choose_method" );
 	double setyaw=SHS::Config::get<double> ( "init_yaw" );
-	double BJoffset=-7.0*M_PI/180.0;
+	double BJoffset=SHS::Config::get<double> ( "magoffset" );
+	BJoffset=BJoffset*M_PI/180.0;
 	_ptest.pdrEkf=bool( SHS::Config::get<int> ( "pdrEkf" ));
 	double initx=SHS::Config::get<double> ( "init_x" );
 	double inity=SHS::Config::get<double> ( "init_y" );
-
+	char css[20];
 // 	istringstream( SHS::Config::get<string> ( "pdrEkf" ))>>_ptest.pdrEkf;
 	cout<<"使用ekf?:"<<_ptest.pdrEkf<<endl;
 	switch(mode)
@@ -177,9 +178,9 @@ int main(int argc, char** argv)
 	
 	//ifstream inFile("./acc.csv");//index,ax,ay,az,gx,gy,gz,mx,my,mz,grox,groy,groz,pressure,time
 // 	ifstream inFile("../data/logfile_2018_11_28_16_21_23.csv");//这个目录指的是运行目录，锁定在当前运行目录下
-	ifstream inFile(SHS::Config::get<string> ( "file_name" ));
-	// ifstream inFile(argv[1]);
-	cout<<argv[1]<<endl;
+	// ifstream inFile(SHS::Config::get<string> ( "file_name" ));
+	ifstream inFile(argv[1]);
+	// cout<<argv[1]<<endl;
 // 	vector<string> gf;
 // 	gf=getFiles("../data/");
 // 	ifstream inFile("./test.csv");
@@ -202,8 +203,9 @@ int main(int argc, char** argv)
 	while (getline(ss, str, ','))  
 	{
 		lineArray.push_back(atof(str.c_str())); 
+		
 	}
-
+	// cout<<lineArray[17]<<endl;
 	count++;
 // 	_ptest.adddata( lineArray[10],lineArray[11],lineArray[12], lineArray[1]+lineArray[4],lineArray[2]+lineArray[5],lineArray[3]+lineArray[6],lineArray[7],lineArray[8],lineArray[9],lineArray[14]);
 // 	_ptest.adddata( lineArray[10],lineArray[11],lineArray[12], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[7],lineArray[8],lineArray[9],lineArray[14]);	//吕总		
@@ -214,15 +216,21 @@ int main(int argc, char** argv)
 // 	_ptest.adddata( lineArray[7],lineArray[8],lineArray[9], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[10],lineArray[11],lineArray[12],lineArray[25]);	//旧版王超采集DAT		
 	// _ptest.adddata( lineArray[7],lineArray[8],lineArray[9], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[10],lineArray[11],lineArray[12],lineArray[27]);	//采集DAT	
 		_ptest.adddata( lineArray[10],lineArray[11],lineArray[12], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[13],lineArray[14],lineArray[15],lineArray[17]);	//采集DAT
+		
 	}
 	else{
 	  if(!bool( SHS::Config::get<int> ( "DAT" )))
 	  {
-	_ptest.adddata( lineArray[10],lineArray[11],lineArray[12], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[7],lineArray[8],lineArray[9],lineArray[13]);	//getsensor数据			    
+	  	if(lineArray[0]>-1)
+	  	{
+		_ptest.adddata( lineArray[10],lineArray[11],lineArray[12], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[7],lineArray[8],lineArray[9],lineArray[13]);	//getsensor数据			    
+	// _ptest.adddata( lineArray[10],lineArray[11],lineArray[12], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[10],lineArray[11],lineArray[12],lineArray[27]);	//sensor		    
+	  	}
 	  }
 	  else{
 	_ptest.adddata( lineArray[7],lineArray[8],lineArray[9], lineArray[1],lineArray[2],lineArray[3],lineArray[4],lineArray[5],lineArray[6],lineArray[10],lineArray[11],lineArray[12],lineArray[27]);	//DAT安卓的数据		    
-	  }
+	 
+	 }
 	}
 // 	
 
@@ -269,8 +277,12 @@ int main(int argc, char** argv)
 	{
 // 		cout<<lineArray[13]<<endl;
 // 		_ptest.setXY(20,20);
-// 		cout<<count<<"step"<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<endl;		
- 		outFile<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.get_mx()<<","<<_ptest.get_my()<<","<<_ptest.get_mz()<<","<<_ptest.cur_index<<","<<_ptest.cur_time<<endl;
+// 		cout<<count<<"step"<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<endl;
+		if(_ptest.get_SL()>0){		
+		sprintf(css, "%f", _ptest.get_time()); 
+ 		outFile<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.get_mx()<<","<<_ptest.get_my()<<","<<_ptest.get_mz()<<","<<_ptest.cur_index<<","<<css<<endl;
+		 
+		}
 // 		cout<<_ptest.get_X()<<","<<_ptest.get_Y()<<","<<_ptest.get_SL()<<","<<_ptest.get_YAW()<<","<<_ptest.get_deta_angle()<<","<<_ptest.cur_index<<","<<_ptest.cur_time<<endl;
 	}
 	

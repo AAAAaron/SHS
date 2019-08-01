@@ -58,3 +58,7 @@ bin
 build
 SHS/build
 SHS/build/src/*
+SHS/data/data.csv
+pandas/_libs/parsers.pyx
+SHS/lib/libSHS.so
+SHS/data/data.csv

@@ -47,7 +47,7 @@ public:
 	double cur_time;
 	int cur_index;
 	bool pdrEkf;
-	bool ISSTEP;
+	bool ISSTEP=false;
 	OutYaw YAWORINTE;//积分1还是直接使用yaw，默认是yaw0,求解的和yz平面的夹角是2，但是注意的是
 	double mag_offset;
 	double init_yaw_offset;
@@ -77,6 +77,7 @@ public:
 	double get_mx();
 	double get_my();
 	double get_mz();
+	double get_time();
 	void set_magoffset(double offset);
 	void set_IOS();
 	void choose_ahrs(int ahrs_index);

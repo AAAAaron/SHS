@@ -28,9 +28,9 @@ Step::Step(void)
 	this->but_length_Fs=100;
 	this->FS=0;
 
-	this->umbral_Acc=0.15; // 峰值最小阈值
-	this->umbral_Acc_descarte=15.0; // 峰值最大阈值
-	this->gravity=9.8; 
+	this->umbral_Acc=0.1; // 峰值最小阈值
+	this->umbral_Acc_descarte=14.0; // 峰值最大阈值
+	this->gravity=9.806; 
 	this->step_index.push_back(0);
 	//this->start_index=0;//标识起点
 	step_time_threshold_max=0.8;
